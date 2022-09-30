@@ -87,8 +87,12 @@ multiqc -o multiqc_int_trimmed fastqc_trimmed
 ### 6. Сборка контигов из подрезанных чтений
 platanus assemble -o pe -f sub_pe_[12].fastq -t 16 -m 56 2> assemble_pe.log
 
+Jupyter notebook с анализом полученных контигов: src\Основное задание\contig_analysis.ipynb
+
 ### 7. Сборка скаффолдов из контигов и подрезанных чтений
 platanus scaffold -o scaffold -c pe_contig.fa -b pe_contigBubble.fa -IP1 sub_pe_1.fastq sub_pe_2.fastq -OP2 sub_mp_1.fastq sub_mp_2.fastq -t 16 2> scaffold.log
+
+Jupyter notebook с анализом полученных скаффолдов: src\Основное задание\scaffold_analysis.ipynb
 
 ### 8. Уменьшение количества гэпов с помощью подрезанных чтений
 platanus gap_close -o gap_close -c scaffold_scaffold.fa -IP1 sub_pe_1.fastq sub_pe_2.fastq -OP2 sub_mp_1.fastq sub_mp_2.fastq -t 16 2> gap_close.log
@@ -182,8 +186,33 @@ multiqc -o multiqc_int_trimmed fastqc_trimmed
 ### 6. Сборка контигов из подрезанных чтений
 platanus assemble -o pe -f sub_pe_[12].fastq -t 16 -m 56 2> assemble_pe.log
 
+Jupyter notebook с анализом полученных контигов: src\Бонусное задание\contig_analysis.ipynb
+
 ### 7. Сборка скаффолдов из контигов и подрезанных чтений
 platanus scaffold -o scaffold -c pe_contig.fa -b pe_contigBubble.fa -IP1 sub_pe_1.fastq sub_pe_2.fastq -OP2 sub_mp_1.fastq sub_mp_2.fastq -t 16 2> scaffold.log
 
+Jupyter notebook с анализом полученных скаффолдов: src\Бонусное задание\scaffold_analysis.ipynb
+
 ### 8. Уменьшение количества гэпов с помощью подрезанных чтений
 platanus gap_close -o gap_close -c scaffold_scaffold.fa -IP1 sub_pe_1.fastq sub_pe_2.fastq -OP2 sub_mp_1.fastq sub_mp_2.fastq -t 16 2> gap_close.log
+
+### 9. Сравнение сборки, полученной из меньшего количества чтений, со сборкой из основной части
+Общее количество контигов: было 602, стало 3462
+
+Общее количество скаффолдов: было 68, стало 490
+
+Значение N50 для контигов: было 299, стало 1735
+
+Значение N50 для скаффолдов: было 1, стало 4
+
+Длина самого длинного контига: было 143'791, стало 27'177
+
+Длина самого длинного скаффолда: было 3'885'015, стало 887'110
+
+Количество гэпов в самом длинном скаффолде: было 146, стало 641
+
+Общая длина гэпов в самом длинном скаффолде: было 6581, стало 20352
+
+Количество гэпов в самом длинном скаффолде после gap-close: было 23, стало 146
+
+Общая длина гэпов в самом длинном скаффолде после gap-close: было 1246, стало 9052
