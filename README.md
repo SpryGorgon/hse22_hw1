@@ -4,21 +4,30 @@
 ## Основное задание
 ### 1. Создание символьных ссылок на файлы с исходными данными
 ln -s /usr/share/data-minor-bioinf/assembly/oil_R1.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oil_R2.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oilMP_S4_L001_R1_001.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oilMP_S4_L001_R2_001.fastq
 
 ### 2. Выбираем случайно 5 миллионов чтений типа paired-end и 1.5 миллиона чтений типа mate-pairs (seed=1218)
 seqtk sample -s 1218 oil_R1.fastq 5000000 > sub_pe_1.fastq
+
 seqtk sample -s 1218 oil_R2.fastq 5000000 > sub_pe_2.fastq
+
 seqtk sample -s 1218 oilMP_S4_L001_R1_001.fastq 1500000 > sub_mp_1.fastq
+
 seqtk sample -s 1218 oilMP_S4_L001_R2_001.fastq 1500000 > sub_mp_2.fastq
 
 ### 3. Получение статистики по исходным чтениям при помощи FastQC и MultiQC
 mkdir fastqc
+
 ls sub*.fastq | xargs -P 4 -tI{} fastqc -o fastqc {}
 
+
 mkdir multiqc
+
 multiqc -o multiqc fastqc
 
 *На картинках pe означает paired-end, mp означает mate-pairs*
@@ -37,19 +46,28 @@ multiqc -o multiqc fastqc
 
 ### 4. Подрезание чтений по качеству, удаление адаптеров
 platanus_trim sub_pe_1.fastq sub_pe_2.fastq
+
 platanus_internal_trim sub_mp_1.fastq sub_mp_2.fastq
 
+
 rm sub_pe_1.fastq sub_pe_2.fastq sub_mp_1.fastq sub_mp_2.fastq
+
 mv sub_pe_1.fastq.trimmed sub_pe_1.fastq
+
 mv sub_pe_2.fastq.trimmed sub_pe_2.fastq
+
 mv sub_mp_1.fastq.int_trimmed sub_mp_1.fastq
+
 mv sub_mp_2.fastq.int_trimmed sub_mp_2.fastq
 
 ### 5. Получение статистики подрезанных чтений при помощи FastQC и MultiQC
 mkdir fastqc_trimmed
+
 ls sub*.fastq | xargs -P 4 -tI{} fastqc -o fastqc_trimmed {}
 
+
 mkdir multiqc_int_trimmed
+
 multiqc -o multiqc_int_trimmed fastqc_trimmed
 
 *На картинках pe означает paired-end, mp означает mate-pairs*
@@ -81,21 +99,30 @@ platanus gap_close -o gap_close -c scaffold_scaffold.fa -IP1 sub_pe_1.fastq sub_
 
 ### 1. Создание символьных ссылок на файлы с исходными данными
 ln -s /usr/share/data-minor-bioinf/assembly/oil_R1.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oil_R2.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oilMP_S4_L001_R1_001.fastq
+
 ln -s /usr/share/data-minor-bioinf/assembly/oilMP_S4_L001_R2_001.fastq
 
 ### 2. Выбираем случайно 500 тысяч чтений типа paired-end и 150 тысяч чтений типа mate-pairs (seed=1218)
 seqtk sample -s 1218 oil_R1.fastq 500000 > sub_pe_1.fastq
+
 seqtk sample -s 1218 oil_R2.fastq 500000 > sub_pe_2.fastq
+
 seqtk sample -s 1218 oilMP_S4_L001_R1_001.fastq 150000 > sub_mp_1.fastq
+
 seqtk sample -s 1218 oilMP_S4_L001_R2_001.fastq 150000 > sub_mp_2.fastq
 
 ### 3. Получение статистики по исходным чтениям при помощи FastQC и MultiQC
 mkdir fastqc
+
 ls sub*.fastq | xargs -P 4 -tI{} fastqc -o fastqc {}
 
+
 mkdir multiqc
+
 multiqc -o multiqc fastqc
 
 *На картинках pe означает paired-end, mp означает mate-pairs*
@@ -114,19 +141,28 @@ multiqc -o multiqc fastqc
 
 ### 4. Подрезание чтений по качеству, удаление адаптеров
 platanus_trim sub_pe_1.fastq sub_pe_2.fastq
+
 platanus_internal_trim sub_mp_1.fastq sub_mp_2.fastq
 
+
 rm sub_pe_1.fastq sub_pe_2.fastq sub_mp_1.fastq sub_mp_2.fastq
+
 mv sub_pe_1.fastq.trimmed sub_pe_1.fastq
+
 mv sub_pe_2.fastq.trimmed sub_pe_2.fastq
+
 mv sub_mp_1.fastq.int_trimmed sub_mp_1.fastq
+
 mv sub_mp_2.fastq.int_trimmed sub_mp_2.fastq
 
 ### 5. Получение статистики подрезанных чтений при помощи FastQC и MultiQC
 mkdir fastqc_trimmed
+
 ls sub*.fastq | xargs -P 4 -tI{} fastqc -o fastqc_trimmed {}
 
+
 mkdir multiqc_int_trimmed
+
 multiqc -o multiqc_int_trimmed fastqc_trimmed
 
 *На картинках pe означает paired-end, mp означает mate-pairs*
